@@ -464,6 +464,14 @@ func TestProto3Text(t *testing.T) {
 			&pb.MessageWithMap{MsgMapping: map[int64]*pb.FloatingPoint{7: nil}},
 			`msg_mapping:<key:7 >`,
 		},
+		// enum non-zero type
+		{
+			&proto3pb.Message{Hilarity: proto3pb.Message_BILL_BAILEY}, `hilarity:BILL_BAILEY`,
+		},
+		// enum zero-type
+		{
+			&proto3pb.Message{Hilarity: proto3pb.Message_UNKNOWN}, `hilarity:UNKNOWN`,
+		},
 	}
 	for _, test := range tests {
 		got := strings.TrimSpace(test.m.String())
